@@ -1,0 +1,19 @@
+# Keep the build context small and never bake secrets into images.
+node_modules
+.next
+.git
+.gitignore
+.vercel
+coverage
+
+# Local secrets must not enter the image; compose injects runtime env instead.
+.env
+.env.*
+!.env.example
+
+Dockerfile
+compose.yaml
+.dockerignore
+README.md
+*.md
+npm-debug.log*
