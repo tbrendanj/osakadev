@@ -18,7 +18,7 @@ export default function Header() {
         <a href="/">Login</a>
       </div>
       <div className={styles.sign_up}>
-        <a>Sign Up</a>
+        <a href="/">Sign Up</a>
       </div>
     </div>
   </div>;
