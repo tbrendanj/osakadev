@@ -74,11 +74,13 @@ service to exit successfully before starting (see `compose.yaml`).
 | `npm run build`       | Production build (emits `output: "standalone"`) |
 | `npm run start`       | Serve a production build                        |
 | `npm run lint`        | ESLint                                          |
+| `npm run storybook`   | Storybook dev server (port 6006)                |
+| `npm run build-storybook` | Static Storybook build                      |
 | `npm run db:generate` | Generate a migration from `db/schema.ts`        |
 | `npm run db:migrate`  | Apply pending migrations                        |
 | `npm run db:push`     | Push schema directly (dev only, no SQL file)    |
 | `npm run db:studio`   | Drizzle Studio GUI                              |
-| `npm run db:seed`     | Insert sample weather rows                      |
+| `npm run db:seed`     | Insert sample rows                              |
 | `npm run db:up`       | Start only the Postgres container               |
 | `npm run db:down`     | Stop containers (keep data)                     |
 | `npm run db:reset`    | Stop containers and delete the data volume      |
@@ -103,6 +105,60 @@ curl -X POST http://localhost:3000/api/v1/reports \
 
 Both routes are `force-dynamic` and validate input with Zod; queries are
 parameterized by Drizzle.
+
+## Testing and test data
+
+Test data is shared, typed, and deterministic.
+
+| Layer                 | Runs via                             | Data source                       |
+| --------------------- | ------------------------------------ | --------------------------------- |
+| Component / story     | Storybook + Vitest (`storybookTest`) | colocated fixtures / story `args` |
+| DB-backed (API, lib)  | Vitest (node project) + a test DB    | `db/fixtures.ts`                  |
+| Pure unit (Zod, util) | Vitest (node project)                | table-driven case fixtures        |
+
+Conventions:
+
+- **One source of truth for domain fixtures.** `db/fixtures.ts` exports typed
+  rows with **explicit time values** — the column defaults to `now()`, so fixed
+  timestamps keep results deterministic. Reuse it in the seed, DB tests, and any
+  story that renders data.
+- **Seed is idempotent.** `db/seed.ts` truncates before inserting, so repeated
+  `npm run db:seed` runs don't accumulate duplicate rows.
+- **Story data is colocated and typed.** Stories live next to components
+  (`components/*.stories.tsx`), with `components/*.fixtures.ts` for anything
+  non-trivial. Use `satisfies Meta<typeof C>`, `fn()` for callback args, `play`
+  for interaction tests, and assertions from `storybook/test`
+  (`expect` / `within` / `userEvent`) — do not add `@testing-library/react`.
+  Stub network/services with MSW handlers shared by Storybook and Vitest.
+- **DB tests use a dedicated database.** Point `DATABASE_URL` and
+  `DATABASE_REPLICA_URL` at a throwaway instance (`.env.test`), apply
+  migrations, load `db/fixtures.ts`, and isolate each test with a rolled-back
+  `db.transaction(...)` or a `TRUNCATE` in `beforeEach`. Both URLs point at the
+  same instance, mirroring the replica sandbox in `lib/db.ts`.
+- **Unit tests keep DB access lazy.** The Zod schemas (`listQuery`, `createBody`)
+  are pure; route handlers are imported and called with a `NextRequest`, mocking
+  `@/lib/db`. Connections stay lazy (see `lib/db.ts`), so importing a handler
+  needs no live database.
+
+```bash
+npm run storybook        # Storybook dev server (port 6006)
+npm run build-storybook  # Static Storybook build
+npx vitest               # story + unit test projects
+```
+
+### Current state and follow-ups
+
+The conventions above are the target; a few gaps remain in the current setup:
+
+- `.storybook/main.ts` still globs the scaffold at `../stories/**` instead of
+  `../components/**`, so real components aren't picked up yet.
+- `.storybook/main.ts` sets `staticDirs: ["..\\public"]` with a Windows
+  backslash, which breaks on Linux/CI/Docker — it should be `"../public"`.
+- `storybook` is declared under `dependencies`; it belongs in `devDependencies`.
+- `db/fixtures.ts` doesn't exist yet — `db/seed.ts` still holds inline sample
+  rows and appends on each run.
+- Vitest is configured with only the Storybook browser project; a node project is
+  still needed for unit and DB tests.
 
 ## Schema and migrations
 
@@ -144,12 +200,17 @@ ignores that setting.
 app/
   api/health/route.ts        DB liveness probe
   api/v1/reports/route.ts    read (replica) + write (primary) example
+components/                  shared React components (+ *.stories.tsx, *.fixtures.ts)
+stories/                     Storybook scaffold examples (to remove, see Testing)
 db/
   schema.ts                  Drizzle table definitions
   seed.ts                    sample data
+  fixtures.ts                typed sample rows shared by seed + tests (planned)
   migrations/                generated SQL (source of truth)
 lib/
   db.ts                      primary + replica pools, readQuery() fallback
+.storybook/                  Storybook config (main.ts, preview.tsx)
+vitest.config.ts             Vitest projects (storybook browser + node)
 drizzle.config.ts            drizzle-kit config (loads .env.local)
 compose.yaml                 db + migrate + web services
 Dockerfile                   deps / builder / migrator / runner stages

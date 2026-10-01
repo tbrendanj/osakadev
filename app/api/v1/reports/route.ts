@@ -1,22 +1,21 @@
 import { desc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { weather } from "@/db/schema";
+import { table } from "@/db/schema";
 import { getDb, readQuery } from "@/lib/db";
 
 // Always hit the database at request time — never prerender or cache this.
 export const dynamic = "force-dynamic";
 
 const listQuery = z.object({
-  city: z.string().trim().min(1).max(100).optional(),
+  colName3: z.string().trim().min(1).max(100).optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
 });
 
 const createBody = z.object({
-  city: z.string().trim().min(1).max(100),
-  temperature: z.number().finite(),
-  humidity: z.number().int().min(0).max(100),
-  description: z.string().trim().min(1).max(200),
+  colName3: z.string().trim().min(1).max(100),
+  // colName: z.number().finite(),
+  // colName2: z.number().int().min(0).max(100),
 });
 
 /**
@@ -36,16 +35,16 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const { city, limit } = parsed.data;
+  const { colName3, limit } = parsed.data;
 
   try {
     // No string interpolation: Drizzle parameterizes everything.
     const rows = await readQuery((client) =>
       client
         .select()
-        .from(weather)
-        .where(city ? eq(weather.city, city) : undefined)
-        .orderBy(desc(weather.recordedAt))
+        .from(table)
+        .where(colName3 ? eq(table.colName3, colName3) : undefined)
+        .orderBy(desc(table.colName3))
         .limit(limit),
     );
 
@@ -79,7 +78,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const [row] = await getDb().insert(weather).values(parsed.data).returning();
+    const [row] = await getDb().insert(table).values(parsed.data).returning();
 
     return NextResponse.json({ data: row }, { status: 201 });
   } catch (error) {

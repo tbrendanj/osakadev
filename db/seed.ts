@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { weather } from "./schema";
+import { table } from "./schema";
 
 config({ path: ".env.local" });
 
@@ -18,40 +18,22 @@ async function main() {
   const pool = new Pool({ connectionString });
   const db = drizzle(pool);
 
-  const rows: (typeof weather.$inferInsert)[] = [
+  const rows: (typeof table.$inferInsert)[] = [
     {
-      city: "Tokyo",
-      temperature: 27.4,
-      humidity: 63,
-      description: "scattered clouds",
+      colName3: "Tokyo",
     },
     {
-      city: "Los Angeles",
-      temperature: 22.1,
-      humidity: 48,
-      description: "clear sky",
-    },
-    {
-      city: "Boston",
-      temperature: 15.8,
-      humidity: 71,
-      description: "light rain",
-    },
-    {
-      city: "New York",
-      temperature: 18.3,
-      humidity: 66,
-      description: "overcast clouds",
+      colName3: "Osaka",
     },
   ];
 
   const inserted = await db
-    .insert(weather)
+    .insert(table)
     .values(rows)
-    .returning({ id: weather.id, city: weather.city });
+    .returning({ id: table.id, colName3: table.colName3 });
 
   console.log(
-    `Seeded ${inserted.length} rows: ${inserted.map((row) => row.city).join(", ")}`,
+    `Seeded ${inserted.length} rows: ${inserted.map((row) => row.colName3).join(", ")}`,
   );
 
   await pool.end();

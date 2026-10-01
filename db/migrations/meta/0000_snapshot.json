@@ -4,8 +4,8 @@
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.weather": {
-      "name": "weather",
+    "public.table": {
+      "name": "table",
       "schema": "",
       "columns": {
         "id": {
@@ -14,50 +14,19 @@
           "primaryKey": true,
           "notNull": true
         },
-        "city": {
-          "name": "city",
+        "colName3": {
+          "name": "colName3",
           "type": "text",
           "primaryKey": false,
           "notNull": true
-        },
-        "temperature": {
-          "name": "temperature",
-          "type": "double precision",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "humidity": {
-          "name": "humidity",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "recorded_at": {
-          "name": "recorded_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
         }
       },
       "indexes": {
-        "weather_city_recorded_at_idx": {
-          "name": "weather_city_recorded_at_idx",
+        "table": {
+          "name": "table",
           "columns": [
             {
-              "expression": "city",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "recorded_at",
+              "expression": "id",
               "isExpression": false,
               "asc": true,
               "nulls": "last"
