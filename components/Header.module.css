@@ -1,8 +1,15 @@
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
 .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 2vw 10vw 2vw 10vw;
+  padding: 2vw 5vw 2vw 5vw;
+  font-family: sans-serif;
+  align-items: center;
 }
 
 .header .tabs {
@@ -11,8 +18,36 @@
   gap: 2rem;
 }
 
+.header .tabs .home {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.header .tabs .page_tabs {
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-bottom: 4px solid #6972FA;
+  padding-bottom: .25rem;
+}
+
 .header .accounts {
   display: flex;
   flex-direction: row;
   gap: 2rem;
+  font-size: 1.4rem;
+  align-items: center;
+}
+
+.header .accounts .sign_in a {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  color: #6972FA;
+}
+
+.header .accounts .sign_up a {
+  background-color: #6972FA;
+  color: #ffffff;
+  padding: 1rem;
+  border-radius: .5rem;
 }

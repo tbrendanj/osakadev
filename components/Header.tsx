@@ -4,21 +4,21 @@ export default function Header() {
   return <div className={styles.header}>
     <div className={styles.tabs}>
       <div>
-        <a href="/">Osaka DEV</a>
+        <a className={styles.home} href="/">Osaka DEV</a>
       </div>
       <div>
-        <a href="/">Find Jobs</a>
+        <a className={styles.page_tabs} href="/">Find Jobs</a>
       </div>
       <div>
-        <a href="/">Browse Jobs</a>
+        <a className={styles.page_tabs} href="/">Browse Jobs</a>
       </div>
     </div>
     <div className={styles.accounts}>
-      <div>
+      <div className={styles.sign_in}>
         <a href="/">Login</a>
       </div>
-      <div>
-        <button>Sign Up</button>
+      <div className={styles.sign_up}>
+        <a>Sign Up</a>
       </div>
     </div>
   </div>;
