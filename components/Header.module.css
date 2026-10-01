@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2vw 10vw 2vw 10vw;
+}
+
+.header .tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.header .accounts {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
