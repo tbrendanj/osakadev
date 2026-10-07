@@ -3,20 +3,20 @@ a {
   text-decoration: none;
 }
 
-.header {
+.horizontally_centered {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 2vw 5vw 2vw 5vw;
-  font-family: sans-serif;
   align-items: center;
 }
 
+.header {
+  justify-content: space-between;
+  padding: 2vw 5vw 2vw 5vw;
+  font-family: sans-serif;
+}
+
 .header .tabs {
-  display: flex;
-  flex-direction: row;
   gap: 2rem;
-  align-items: center;
 }
 
 .header .tabs .home {
@@ -32,11 +32,8 @@ a {
 }
 
 .header .accounts {
-  display: flex;
-  flex-direction: row;
   gap: 2rem;
   font-size: 1.4rem;
-  align-items: center;
 }
 
 .header .accounts .sign_in a {
