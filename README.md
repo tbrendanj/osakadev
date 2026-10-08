@@ -6,11 +6,11 @@ and recruitment.
 
 ## Stack
 
-NextJS 16 (App Router, Typescript)
-Drizzle ORM + `node-postgres` (`pg`)
-PostgreSQL 16
-Docker
-Storybook
+NextJS 16 (App Router, Typescript)\
+Drizzle ORM + `node-postgres` (`pg`)\
+PostgreSQL 16\
+Docker\
+Storybook\
 
 ## Prerequisites
 
@@ -26,10 +26,10 @@ cp .env.example .env.local      # Windows: copy .env.example .env.local
 
 ## Directories
 
-app/lib/static - static data
-app/lib/types - definitions for types written for this project
+app/lib/static - static data\
+app/lib/types - definitions for types written for this project\
 public/images - image assets from the site. There will be a CDN used for holding user-uploaded images (company logos, etc.) when the time comes
-db - database things
+db - database things\
 
 ## Local Testing
 
@@ -49,14 +49,14 @@ npm run storybook
 
 TBD
 
-Language toggle (eng-jp) - Requires support for storing data for two languages for the same job ids
-Database access
-Security audit
-User accounts
+Language toggle (eng-jp) - Requires support for storing data for two languages for the same job ids\
+Database access\
+Security audit\
+User accounts\
 - companies need to be able to add job listings
 - candidates need to be able to add resumes
 - both need to be able to create profiles for themselves
-- CDN for image uploads
-Skill courses?
-Connect to GitHub for skill evaluations?
-Skill assessments?
+- CDN for image uploads\
+Skill courses?\
+Connect to GitHub for skill evaluations?\
+Skill assessments?\
