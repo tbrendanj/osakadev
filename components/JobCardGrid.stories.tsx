@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import JobCardGrid from "./JobCardGrid";
+import { JobCards } from "@/app/lib/static/SampleJobCards";
 
 const meta = {
   title: "JobCardGrid",

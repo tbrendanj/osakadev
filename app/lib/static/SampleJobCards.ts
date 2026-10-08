@@ -1,0 +1,51 @@
+import { JobCardProps } from "@/components/JobCard";
+export const JobCards: JobCardProps[] = [
+  {
+    title: "Frontend Developer",
+    companyName: "SakuraTech",
+    remoteStatus: "hybrid",
+    location: "Osaka, Japan",
+    salary: "¥4,000,000 – ¥6,000,000 / year",
+    iconLink: "images/noimage.png",
+  },
+  {
+    title: "Frontend Developer",
+    companyName: "SakuraTech",
+    remoteStatus: "hybrid",
+    location: "Osaka, Japan",
+    salary: "¥4,000,000 – ¥6,000,000 / year",
+    iconLink: "images/noimage.png",
+  },
+  {
+    title: "Frontend Developer",
+    companyName: "SakuraTech",
+    remoteStatus: "hybrid",
+    location: "Osaka, Japan",
+    salary: "¥4,000,000 – ¥6,000,000 / year",
+    iconLink: "images/noimage.png",
+  },
+  {
+    title: "Frontend Developer",
+    companyName: "SakuraTech",
+    remoteStatus: "hybrid",
+    location: "Osaka, Japan",
+    salary: "¥4,000,000 – ¥6,000,000 / year",
+    iconLink: "images/noimage.png",
+  },
+  {
+    title: "Frontend Developer",
+    companyName: "SakuraTech",
+    remoteStatus: "hybrid",
+    location: "Osaka, Japan",
+    salary: "¥4,000,000 – ¥6,000,000 / year",
+    iconLink: "images/noimage.png",
+  },
+  {
+    title: "Frontend Developer",
+    companyName: "SakuraTech",
+    remoteStatus: "hybrid",
+    location: "Osaka, Japan",
+    salary: "¥4,000,000 – ¥6,000,000 / year",
+    iconLink: "images/noimage.png",
+  },
+];
