@@ -6,7 +6,7 @@ export const JobCards: JobCardProps[] = [
     remoteStatus: "hybrid",
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
-    iconLink: "images/noimage.png",
+    iconLink: "/images/noimage.png",
     jobLink: "/",
   },
   {
@@ -15,7 +15,7 @@ export const JobCards: JobCardProps[] = [
     remoteStatus: "hybrid",
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
-    iconLink: "images/noimage.png",
+    iconLink: "/images/noimage.png",
     jobLink: "/",
   },
   {
@@ -24,7 +24,7 @@ export const JobCards: JobCardProps[] = [
     remoteStatus: "hybrid",
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
-    iconLink: "images/noimage.png",
+    iconLink: "/images/noimage.png",
     jobLink: "/",
   },
   {
@@ -33,7 +33,7 @@ export const JobCards: JobCardProps[] = [
     remoteStatus: "hybrid",
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
-    iconLink: "images/noimage.png",
+    iconLink: "/images/noimage.png",
     jobLink: "/",
   },
   {
@@ -42,7 +42,7 @@ export const JobCards: JobCardProps[] = [
     remoteStatus: "hybrid",
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
-    iconLink: "images/noimage.png",
+    iconLink: "/images/noimage.png",
     jobLink: "/",
   },
   {
@@ -51,7 +51,7 @@ export const JobCards: JobCardProps[] = [
     remoteStatus: "hybrid",
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
-    iconLink: "images/noimage.png",
+    iconLink: "/images/noimage.png",
     jobLink: "/",
   },
 ];
