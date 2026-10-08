@@ -1,4 +1,4 @@
-.job_card {
+.job_card a {
   display: flex;
   flex-direction: column;
   gap: .5rem;

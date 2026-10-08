@@ -7,6 +7,7 @@ export const JobCards: JobCardProps[] = [
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
     iconLink: "images/noimage.png",
+    jobLink: "/",
   },
   {
     title: "Frontend Developer",
@@ -15,6 +16,7 @@ export const JobCards: JobCardProps[] = [
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
     iconLink: "images/noimage.png",
+    jobLink: "/",
   },
   {
     title: "Frontend Developer",
@@ -23,6 +25,7 @@ export const JobCards: JobCardProps[] = [
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
     iconLink: "images/noimage.png",
+    jobLink: "/",
   },
   {
     title: "Frontend Developer",
@@ -31,6 +34,7 @@ export const JobCards: JobCardProps[] = [
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
     iconLink: "images/noimage.png",
+    jobLink: "/",
   },
   {
     title: "Frontend Developer",
@@ -39,6 +43,7 @@ export const JobCards: JobCardProps[] = [
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
     iconLink: "images/noimage.png",
+    jobLink: "/",
   },
   {
     title: "Frontend Developer",
@@ -47,5 +52,6 @@ export const JobCards: JobCardProps[] = [
     location: "Osaka, Japan",
     salary: "¥4,000,000 – ¥6,000,000 / year",
     iconLink: "images/noimage.png",
+    jobLink: "/",
   },
 ];
