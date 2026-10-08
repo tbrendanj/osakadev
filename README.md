@@ -10,7 +10,7 @@ NextJS 16 (App Router, Typescript)\
 Drizzle ORM + `node-postgres` (`pg`)\
 PostgreSQL 16\
 Docker\
-Storybook\
+Storybook
 
 ## Prerequisites
 
@@ -52,11 +52,11 @@ TBD
 Language toggle (eng-jp) - Requires support for storing data for two languages for the same job ids\
 Database access\
 Security audit\
-User accounts\
+User accounts
 - companies need to be able to add job listings
 - candidates need to be able to add resumes
 - both need to be able to create profiles for themselves
 - CDN for image uploads\
 Skill courses?\
 Connect to GitHub for skill evaluations?\
-Skill assessments?\
+Skill assessments?
