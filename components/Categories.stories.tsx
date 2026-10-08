@@ -11,4 +11,21 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    categories: [
+      {
+        categoryName: "Backend",
+        jobCount: 45,
+      },
+      {
+        categoryName: "Backend",
+        jobCount: 45,
+      },
+      {
+        categoryName: "Backend",
+        jobCount: 45,
+      },
+    ]
+  }
+};

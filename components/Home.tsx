@@ -1,14 +1,17 @@
-import Image from "next/image";
 import styles from "./Home.module.css";
+
 import Header from "./Header";
 import Banner from "./Banner";
 import CompanyLogos from "./CompanyLogos";
 import HowItWorks from "./HowItWorks";
+import Categories from "./Categories";
 
+//TODO: A lot of this data should be queried out of the db!
 import { FirstLogoUrlArray, SecondLogoUrlArray } from "@/app/lib/static/LogoUrlArrays"
 import { InfoCards } from "@/app/lib/static/InfoCards";
 import JobsDisplay from "./JobsDisplay";
 import { JobCards } from "@/app/lib/static/SampleJobCards";
+import { CategoryListings } from "@/app/lib/static/CategoryListings";
 
 export default function Home() {
   return <>
@@ -21,5 +24,6 @@ export default function Home() {
       infoCards={InfoCards}
     />
     <JobsDisplay jobCards={JobCards} />
+    <Categories categories={CategoryListings} />
   </>;
 }
