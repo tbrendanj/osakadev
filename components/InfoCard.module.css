@@ -4,4 +4,10 @@
   gap: 1rem;
   padding: .75rem;
   border-radius: .5rem;
+  background-color: #FFFFFF;
+}
+
+.info_card span {
+  color: #00736E;
+  font-variation-settings: 'FILL' 1;
 }
