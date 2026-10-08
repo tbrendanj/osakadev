@@ -1,0 +1,5 @@
+.info_card_grid {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}

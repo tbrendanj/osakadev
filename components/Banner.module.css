@@ -2,13 +2,13 @@
   background-image: linear-gradient(
       rgba(0, 0, 0, 0.7), 
       rgba(0, 0, 0, 0.7)
-    ), url("..\public\images\fa88b8fa075f890bfe7563355809b6f8a712e4cd.jpg"); 
+    ), url("images/banner.jpg"); 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   background-position: center;
-  padding: 5vw 10vw 5vw 10vw;
+  padding: 5vw 7vw 5vw 7vw;
 }
 
 .banner_inner_container {

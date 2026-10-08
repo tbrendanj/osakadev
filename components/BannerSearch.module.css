@@ -1,9 +1,3 @@
-.horizontally_centered {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
 .banner_search {
   display: inline-block;
   background-color: #FFFFFF;

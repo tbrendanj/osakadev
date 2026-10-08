@@ -3,12 +3,12 @@ import 'material-symbols/outlined.css';
 import { HiLocationMarker } from "react-icons/hi";
 
 export default function Banner() {
-  return <div className={`${styles.horizontally_centered} ${styles.banner_search}`}>
+  return <div className={`${"horizontally_centered"} ${styles.banner_search}`}>
     <span className={`${"material-symbols-outlined"} ${styles.banner_search_icon}`}>search</span>
     <input className={styles.banner_search_input} name="query" placeholder="Search Job Title, Keyword, or Skill"></input>
     <HiLocationMarker className={styles.banner_search_icon}/>
     <input className={styles.banner_search_input} name="location" placeholder="City, Prefecture, or Remote"></input>
-    <button className={`${styles.horizontally_centered} ${styles.banner_search_button}`}>
+    <button className={`${"horizontally_centered"} ${styles.banner_search_button}`}>
       Find Jobs
       <span className={`${"material-symbols-outlined"} ${styles.banner_search_icon}`}>search</span>
     </button>

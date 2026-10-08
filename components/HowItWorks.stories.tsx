@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import HowItWorks from "./HowItWorks";
+import { InfoCards } from "@/app/lib/static/InfoCards";
 
 const meta = {
   title: "HowItWorks",
@@ -11,4 +12,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    title: "How Osaka DEV Works",
+    content: "Getting your dream job in Japan shouldn't be complicated. Here's how it works:",
+    infoCards: InfoCards,
+  }
+};
