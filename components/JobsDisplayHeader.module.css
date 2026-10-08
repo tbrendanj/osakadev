@@ -1,0 +1,20 @@
+.job_display_header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 2.5rem;
+  max-width: 50%;
+}
+
+.view_all_button {
+  padding: .75rem 1.5rem;
+  border: 1px solid #E7F0FA;
+  border-radius: .25rem;
+  font-weight: 600;
+  color: #00A99D;
+}

@@ -1,0 +1,6 @@
+.job_display {
+  padding: 5vw 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
