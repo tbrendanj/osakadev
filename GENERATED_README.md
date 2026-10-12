@@ -194,6 +194,50 @@ drift from the migrations.
 `next.config.ts` sets `output: "standalone"` for the Docker image; Vercel
 ignores that setting.
 
+## Image uploads and storage
+
+User-uploaded images (company logos, avatars, etc.) live in **cloud object
+storage** — not in the repo, not in the container filesystem, and not in
+Postgres. The filesystem is ephemeral on Vercel and in the standalone Docker
+image, so anything written locally disappears on the next deploy, and binary
+blobs don't belong in the database.
+
+**Design: key + base URL.** The database stores only the object key (e.g.
+`uploads/abc123.png`) — never a full URL, never a local path. The base URL
+comes from an env var (planned: `STORAGE_BASE_URL`), so swapping providers is
+a config change, not a data migration. One helper composes `base + key` at
+render time.
+
+Upload flow:
+
+1. The client sends the image to a server route handler.
+2. The handler validates MIME type and size server-side (never trust the file
+   extension).
+3. The file is uploaded to the provider and the returned **object key** is
+   stored in the database.
+
+Serving uses `next/image` as usual, with `images.remotePatterns` in
+`next.config.ts` scoped to the storage host — the allowlist enables remote
+images and keeps the app from being used as an open image proxy (confirmed
+against the bundled Next 16 docs).
+
+Provider options — each is already CDN-fronted, so the CDN is a property of
+the provider rather than separate infrastructure to build:
+
+| Deploy target      | Option          | Notes                        |
+| ------------------ | --------------- | ---------------------------- |
+| Vercel             | Vercel Blob     | simplest on the Vercel path  |
+| Docker / self-host | Cloudflare R2   | free tier, zero egress fees  |
+| Either (AWS)       | S3 + CloudFront | if already on AWS            |
+
+Housekeeping: hash the filename on replace and set immutable cache headers
+(logos change rarely); `public/images` stays for site-owned static assets
+only; `/images/noimage.png` remains the fallback for missing images.
+
+> This supersedes the earlier "CDN for image uploads" roadmap note: the
+> architectural decision is object storage with a key + base URL; the CDN
+> comes with the provider.
+
 ## Project structure
 
 ```

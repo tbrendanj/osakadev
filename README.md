@@ -28,12 +28,18 @@ cp .env.example .env.local      # Windows: copy .env.example .env.local
 
 app/lib/static - static data\
 app/lib/types - definitions for types written for this project\
-public/images - image assets from the site. There will be a CDN used for holding user-uploaded images (company logos, etc.) when the time comes
+public/images - site-owned image assets only. User-uploaded images (company logos, etc.) go to cloud object storage; the database stores the object key and the base URL comes from STORAGE_BASE_URL (see GENERATED_README.md, "Image uploads and storage")
 db - database things\
 
 ## Local Testing
 
-Test the site:
+Test site (dev):
+
+```bash
+npm run dev
+```
+
+Test site (prod):
 
 ```bash
 npm run docker:up
@@ -56,7 +62,7 @@ User accounts
 - companies need to be able to add job listings
 - candidates need to be able to add resumes
 - both need to be able to create profiles for themselves
-- CDN for image uploads\
+- Cloud object storage for image uploads (key + base URL design, see GENERATED_README.md)\
 Skill courses?\
 Connect to GitHub for skill evaluations?\
 Skill assessments?
