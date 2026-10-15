@@ -3,12 +3,14 @@ import JobCard, { JobCardProps } from "./JobCard";
 
 export interface JobCardGridProps {
   jobCards: JobCardProps[];
+  isLarge: boolean;
 }
 
 export default function JobCardGrid({
-  jobCards
+  jobCards,
+  isLarge
 }: JobCardGridProps) {
-  return <div className={styles.job_card_grid}>
+  return <div className={`${styles.job_card_grid} ${isLarge ? styles.large_grid : ""}`}>
     {jobCards.map((jobCard, index) => 
       <JobCard 
         key={"job_card_" + index}

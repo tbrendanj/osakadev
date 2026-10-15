@@ -1,6 +1,6 @@
 .job_card_grid {
   display: grid;
-  grid-auto-flow: column;
+  grid-auto-flow: row;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: repeat(6, 1fr);
   grid-gap: 1.5rem;
@@ -11,5 +11,10 @@
   .job_card_grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
+  }
+
+  .large_grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
   }
 }
