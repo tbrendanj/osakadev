@@ -1,17 +1,16 @@
 import styles from "./Header.module.css";
 
+import HeaderTabs from "./HeaderTabs";
+
+import { HeaderTabList } from "@/app/lib/static/HeaderTabList";
+
 export default function Header() {
-  return <div className={`${styles.header} ${"horizontally_centered"}`}>
+  return <div className={`${styles.header}`}>
     <div className={`${styles.tabs} ${"horizontally_centered"}`}>
       <div>
         <a className={styles.home} href="/">Osaka DEV</a>
       </div>
-      <div>
-        <a className={styles.page_tabs} href="/">Find Jobs</a>
-      </div>
-      <div>
-        <a className={styles.page_tabs} href="/">Browse Jobs</a>
-      </div>
+      <HeaderTabs headerTabList={HeaderTabList} />
     </div>
     <div className={`${styles.accounts} ${"horizontally_centered"}`}>
       <div className={styles.sign_in}>

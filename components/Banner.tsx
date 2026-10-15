@@ -1,14 +1,22 @@
 import styles from "./Banner.module.css";
 import BannerSearch from "./BannerSearch";
 
-export default function Banner() {
+export interface BannerProps {
+  titleText: string;
+  bannerText: string;
+}
+
+export default function Banner({
+  titleText,
+  bannerText
+}: BannerProps) {
   return <div className={styles.banner}>
     <div className={styles.banner_inner_container}>
       <h1 className={styles.banner_text}>
-        Find Your Next Developer Job in Japan
+        {titleText}
       </h1>
       <p className={styles.banner_text}>
-        Discover top tech companies hiring in Japan. Filter by role, skills, or location and apply in one click!
+        {bannerText}
       </p>
       <BannerSearch />
     </div>

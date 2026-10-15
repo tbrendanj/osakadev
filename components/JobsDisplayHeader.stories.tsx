@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import JobsDisplayHeader from "./JobsDisplayHeader";
+import { HomeJobsDisplayHeaderTitle } from "@/app/lib/static/HomeJobsDisplayHeaderTitle";
 
 const meta = {
   title: "JobsDisplayHeader",
@@ -11,4 +12,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    title: HomeJobsDisplayHeaderTitle
+  }
+};

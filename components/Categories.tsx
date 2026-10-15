@@ -9,8 +9,8 @@ export default function Categories({
   categories
 }: CategoriesProps) {
   return <div className={styles.categories}>
-    {categories.map(category => {
-      return <Category categoryName={category.categoryName} jobCount={category.jobCount} />
+    {categories.map((category, index) => {
+      return <Category key={"category_" + index} categoryName={category.categoryName} jobCount={category.jobCount} />
     })}
   </div>;
 }

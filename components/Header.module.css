@@ -1,5 +1,8 @@
 .header {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   padding: 2vw 5vw 2vw 5vw;
   font-family: sans-serif;
 }
@@ -10,7 +13,11 @@
 }
 
 .header .tabs {
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
+  padding-bottom: 2rem;
+  text-align: center;
 }
 
 .header .tabs .home {
@@ -21,18 +28,22 @@
 .header .tabs .page_tabs {
   font-size: 1.4rem;
   font-weight: 500;
-  border-bottom: 4px solid #6972FA;
   padding-bottom: .25rem;
 }
 
+.header .tabs .page_tabs:hover, .header .tabs .page_tabs.selected{
+  border-bottom: 4px solid #6972FA;
+}
+
 .header .accounts {
+  display: flex;
+  flex-direction: row;
   gap: 2rem;
   font-size: 1.4rem;
+  padding: 1rem;
 }
 
 .header .accounts .sign_in a {
-  display: flex;
-  flex-direction: row;
   gap: 2rem;
   color: #6972FA;
 }
@@ -42,4 +53,19 @@
   color: #FFFFFF;
   padding: 1rem;
   border-radius: .5rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    flex-direction: row;
+  }
+
+  .header .tabs {
+    flex-direction: row;
+    padding-bottom: 0;
+  }
+
+  .header .accounts {
+    padding: 0;
+  }
 }

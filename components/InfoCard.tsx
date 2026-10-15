@@ -13,8 +13,10 @@ export default function InfoCard({
   content
 }: InfoCardProps) {
   return <div className={styles.info_card}>
-    <span className={`${"material-symbols-outlined"} ${styles.banner_search_icon}`}>{icon}</span>
-    <h3>{title}</h3>
+    <div className={styles.info_card_heading}>
+      <span className={`${"material-symbols-outlined"} ${styles.banner_search_icon}`}>{icon}</span>
+      <h3>{title}</h3>
+    </div>
     <p>{content}</p>
   </div>;
 }

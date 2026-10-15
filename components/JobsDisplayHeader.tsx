@@ -1,10 +1,16 @@
 import styles from "./JobsDisplayHeader.module.css";
 import 'material-symbols/outlined.css';
 
-export default function JobsDisplayHeader() {
+export interface JobsDisplayHeaderProps {
+  title: string;
+}
+
+export default function JobsDisplayHeader({
+  title
+}: JobsDisplayHeaderProps) {
   return <div className={styles.job_display_header}>
     <h2 className={styles.title}>
-      LATEST DEVELOPER JOBS
+      {title}
     </h2>
     <div className={styles.view_all_button}>
       <a href={"/"} className={"horizontally_centered"}>

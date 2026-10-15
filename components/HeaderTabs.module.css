@@ -1,0 +1,9 @@
+.page_tabs {
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding-bottom: .25rem;
+}
+
+.page_tabs:hover, .page_tabs.selected{
+  border-bottom: 4px solid #6972FA;
+}

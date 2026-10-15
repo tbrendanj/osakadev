@@ -9,8 +9,8 @@ export default function LogoArray({
   logoUrlArray
 }: LogoArrayProps) {
   return <div className={`${styles.logo_array} ${"horizontally_centered"}`}>
-    {logoUrlArray.map(logoUrl => 
-      <Image src={logoUrl} alt={"logo"} width={75} height={75}></Image>
+    {logoUrlArray.map((logoUrl, index) => 
+      <Image key={"logo_" + index} src={logoUrl} alt={"logo"} width={75} height={75}></Image>
     )}
   </div>;
 }

@@ -9,8 +9,9 @@ export default function JobCardGrid({
   jobCards
 }: JobCardGridProps) {
   return <div className={styles.job_card_grid}>
-    {jobCards.map(jobCard => 
+    {jobCards.map((jobCard, index) => 
       <JobCard 
+        key={"job_card_" + index}
         title={jobCard.title}
         companyName={jobCard.companyName}
         remoteStatus={jobCard.remoteStatus}

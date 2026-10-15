@@ -26,8 +26,10 @@ cp .env.example .env.local      # Windows: copy .env.example .env.local
 
 ## Directories
 
-app/lib/static - static data\
-app/lib/types - definitions for types written for this project\
+app/lib/static - static data that will be used on the site (even in prod)\
+app/lib/testing - data related to testing or dev environments\
+app/lib/testing/fixtures - data that is used as filler in testing/dev environments\
+app/lib/types - definitions for types (interfaces, enums) written for this project\
 public/images - site-owned image assets only. User-uploaded images (company logos, etc.) go to cloud object storage; the database stores the object key and the base URL comes from STORAGE_BASE_URL (see GENERATED_README.md, "Image uploads and storage")
 db - database things\
 

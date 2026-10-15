@@ -1,13 +1,13 @@
 .banner_search {
   display: inline-block;
   background-color: #FFFFFF;
+  padding: .5rem;
   border-radius: .25rem;
   font-family: sans-serif;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: .5rem;
   width: fit-content;
-  padding: 1rem;
 }
 
 .banner_search_input {
@@ -27,4 +27,17 @@
   border-radius: .5rem;
   font-size: 1.25rem;
   padding: .5rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .banner_search {
+    flex-direction: row;
+    gap: .5rem;
+    width: fit-content;
+    padding: 1rem;
+  }
+
+  .banner_search_input {
+    font-size: 1rem;
+  }
 }

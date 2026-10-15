@@ -152,8 +152,6 @@ The conventions above are the target; a few gaps remain in the current setup:
 
 - `.storybook/main.ts` still globs the scaffold at `../stories/**` instead of
   `../components/**`, so real components aren't picked up yet.
-- `.storybook/main.ts` sets `staticDirs: ["..\\public"]` with a Windows
-  backslash, which breaks on Linux/CI/Docker — it should be `"../public"`.
 - `storybook` is declared under `dependencies`; it belongs in `devDependencies`.
 - `db/fixtures.ts` doesn't exist yet — `db/seed.ts` still holds inline sample
   rows and appends on each run.

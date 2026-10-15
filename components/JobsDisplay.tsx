@@ -5,13 +5,15 @@ import { JobCardProps } from "./JobCard";
 
 export interface JobsDisplayProps {
   jobCards: JobCardProps[];
+  title: string;
 }
 
 export default function JobsDisplay({
-  jobCards
+  jobCards,
+  title
 }: JobsDisplayProps) {
   return <div className={styles.job_display}>
-    <JobsDisplayHeader />
+    <JobsDisplayHeader title={title} />
     <JobCardGrid jobCards={jobCards} />
   </div>;
 }

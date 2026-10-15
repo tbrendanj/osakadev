@@ -1,5 +1,12 @@
 .info_card_grid {
   display: flex;
-  flex-direction: row;
-  gap: 3rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .info_card_grid {
+    flex-direction: row;
+    gap: 3rem;
+  }
 }

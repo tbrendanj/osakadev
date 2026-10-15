@@ -12,6 +12,7 @@ export interface JobCardProps {
   salary: string;
   iconLink: string;
   jobLink: string;
+  [key: string]: any;
 }
 
 export default function JobCard({

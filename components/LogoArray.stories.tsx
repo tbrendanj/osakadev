@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import LogoArray from "./LogoArray";
 
-import { FirstLogoUrlArray } from "@/app/lib/static/LogoUrlArrays";
+import { FirstLogoUrlArray } from "@/app/lib/testing/fixtures/LogoUrlArrays";
 
 const meta = {
   title: "LogoArray",
