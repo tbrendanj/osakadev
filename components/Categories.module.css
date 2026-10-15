@@ -1,5 +1,11 @@
 .categories {
   display: flex;
   flex-direction: column;
-  padding: 5vw 6rem;
+  padding: 2vw 2rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .categories {
+    padding: 5vw 6rem;
+  }
 }

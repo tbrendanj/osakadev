@@ -1,6 +1,12 @@
 .job_display {
-  padding: 5vw 6rem;
+  padding: 3vw 2rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .job_display {
+    padding: 5vw 6rem;
+  }
 }

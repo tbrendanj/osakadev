@@ -1,4 +1,5 @@
 import styles from "./Category.module.css";
+import Tag from "./Tag";
 
 export interface CategoryProps {
   categoryName: string;
@@ -11,7 +12,7 @@ export default function Category({
 }: CategoryProps) {
   return <div className={styles.category}>
     <a href={"/"} className={"horizontally_centered"}>
-      <div className={styles.category_name}>{categoryName}</div>
+      <Tag tagName={categoryName} />
       <div className={styles.job_count}>{jobCount} jobs</div>
     </a>
   </div>;
