@@ -1,5 +1,5 @@
-import Home from "@/components/Home";
+import FindPage from "@/components/FindPage";
 
 export default function Page() {
-  return <Home />;
+  return <FindPage />;
 }

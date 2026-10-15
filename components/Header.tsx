@@ -4,13 +4,19 @@ import HeaderTabs from "./HeaderTabs";
 
 import { HeaderTabList } from "@/app/lib/static/HeaderTabList";
 
-export default function Header() {
+export interface HeaderProps {
+  selectedTab?: string | null;
+}
+
+export default function Header({
+  selectedTab = null
+}: HeaderProps) {
   return <div className={`${styles.header}`}>
     <div className={`${styles.tabs} ${"horizontally_centered"}`}>
       <div>
         <a className={styles.home} href="/">Osaka DEV</a>
       </div>
-      <HeaderTabs headerTabList={HeaderTabList} />
+      <HeaderTabs headerTabList={HeaderTabList} selectedTab={selectedTab} />
     </div>
     <div className={`${styles.accounts} ${"horizontally_centered"}`}>
       <div className={styles.sign_in}>
