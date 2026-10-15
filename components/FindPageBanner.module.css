@@ -1,4 +1,14 @@
+.find_page_banner_upper {
+  justify-content: space-between;
+  background-color: #F1F2F4;
+  padding: 3rem 5vw;
+}
+
 .find_page_banner_lower {
   background-color: #5E66D6;
   padding: 3rem 10vw;
+}
+
+.find_page_banner_upper_gray_text {
+  color: #767F8C;
 }
