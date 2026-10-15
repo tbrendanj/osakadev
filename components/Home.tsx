@@ -1,5 +1,3 @@
-import styles from "./Home.module.css";
-
 import Banner from "./Banner";
 import CompanyLogos from "./CompanyLogos";
 import HowItWorks from "./HowItWorks";
