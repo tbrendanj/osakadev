@@ -7,6 +7,11 @@ Reads go to a **read replica** and writes go to the **primary**; locally both
 point at the same Postgres instance, so enabling a real replica later is a
 config change, not a code change. See [`lib/db.ts`](./lib/db.ts).
 
+An optional **Upstash Redis** read cache sits in front of the database
+([`lib/cache.ts`](./lib/cache.ts)); when its env vars are unset it is disabled
+and every read falls through to the database unchanged — same fallback
+philosophy as the replica.
+
 ## Stack
 
 | Piece      | Choice                                       |
@@ -16,6 +21,7 @@ config change, not a code change. See [`lib/db.ts`](./lib/db.ts).
 | ORM        | Drizzle ORM + `node-postgres` (`pg`)         |
 | Migrations | `drizzle-kit` (SQL files in `db/migrations`) |
 | Validation | Zod                                          |
+| Read cache | Upstash Redis (optional — disabled when unset) |
 | Containers | Docker + Docker Compose                      |
 
 ## Prerequisites
@@ -89,11 +95,11 @@ service to exit successfully before starting (see `compose.yaml`).
 
 ## API
 
-| Route             | Method | Notes                                     |
-| ----------------- | ------ | ----------------------------------------- |
-| `/api/health`     | GET    | Pings the DB with `select 1`; 503 if down |
-| `/api/v1/reports` | GET    | Read — served by the replica              |
-| `/api/v1/reports` | POST   | Write — always the primary                |
+| Route             | Method | Notes                                                        |
+| ----------------- | ------ | ------------------------------------------------------------ |
+| `/api/health`     | GET    | Pings the DB with `select 1` (+ Redis ping); 503 if DB down  |
+| `/api/v1/reports` | GET    | Read — Redis cache (when configured) → replica → primary     |
+| `/api/v1/reports` | POST   | Write — always the primary, then invalidates the `reports` cache |
 
 ```bash
 curl http://localhost:3000/api/health
@@ -104,7 +110,9 @@ curl -X POST http://localhost:3000/api/v1/reports \
 ```
 
 Both routes are `force-dynamic` and validate input with Zod; queries are
-parameterized by Drizzle.
+parameterized by Drizzle. GET reads pass through the Redis cache when it is
+configured (30s fresh, then 270s stale-while-revalidate); POST bumps the
+`reports` cache version so new rows are visible immediately.
 
 ## Testing and test data
 
@@ -155,8 +163,10 @@ The conventions above are the target; a few gaps remain in the current setup:
 - `storybook` is declared under `dependencies`; it belongs in `devDependencies`.
 - `db/fixtures.ts` doesn't exist yet — `db/seed.ts` still holds inline sample
   rows and appends on each run.
-- Vitest is configured with only the Storybook browser project; a node project is
-  still needed for unit and DB tests.
+- Vitest now has both projects: the Storybook browser project and a node
+  project for pure unit tests (`lib/**/*.test.ts`, `app/**/*.test.ts`,
+  `db/**/*.test.ts`). DB-backed tests still need their own database setup
+  once `db/fixtures.ts` lands.
 
 ## Schema and migrations
 
@@ -183,14 +193,52 @@ drift from the migrations.
    | `DATABASE_URL`          | Neon **pooled** primary endpoint  |
    | `DATABASE_URL_UNPOOLED` | Neon **direct** primary endpoint  |
    | `DATABASE_REPLICA_URL`  | Neon replica **pooled** endpoint  |
+   | `UPSTASH_REDIS_REST_URL`| Upstash database REST URL         |
+   | `UPSTASH_REDIS_REST_TOKEN` | Upstash database REST token    |
 
-4. Import the repo into Vercel (framework preset: Next.js).
-5. Check read-replica availability for your Neon plan before relying on it; if
+4. Create an **Upstash Redis** database (Vercel Marketplace) in the **same
+   region** as your Vercel functions and Neon project, then set the two
+   `UPSTASH_*` env vars. Leave them unset to run without the cache — reads
+   fall through to the database.
+5. Import the repo into Vercel (framework preset: Next.js).
+6. Check read-replica availability for your Neon plan before relying on it; if
    unavailable, leave `DATABASE_REPLICA_URL` unset and reads fall back to the
    primary.
 
 `next.config.ts` sets `output: "standalone"` for the Docker image; Vercel
 ignores that setting.
+
+## Read cache: Upstash Redis
+
+Reads flow through three tiers, cheapest per request first:
+
+1. **Vercel CDN** — public pages and stable-URL GETs (ISR / Flat Rate CDN).
+2. **Upstash Redis** (`lib/cache.ts`) — dynamic API reads, especially
+   long-tail query-string permutations the CDN can't cache well, shared
+   across Fluid Compute instances (Next's Data Cache is per-instance; Redis
+   is global).
+3. **Postgres** (`lib/db.ts`) — read replica, then primary.
+
+Implementation: cache-aside with stale-while-revalidate (stale data is served
+instantly while `after()` refreshes in the background), in-flight
+deduplication (concurrent cold requests share one DB query), and **fail-open**
+everywhere — Redis errors degrade to database reads, never a 500.
+Invalidation is versioned: writes `INCR` a per-tag counter (`osaka:ver:*`)
+and cache keys embed the version, so invalidation is one atomic `INCR` with
+no key scans; orphaned entries expire via TTL.
+
+| Env var                   | Value                                     |
+| ------------------------- | ----------------------------------------- |
+| `UPSTASH_REDIS_REST_URL`  | Upstash database REST URL                 |
+| `UPSTASH_REDIS_REST_TOKEN`| Upstash database REST token               |
+
+Unset = caching disabled (local dev, Docker, and unit tests run without it;
+`compose.yaml` passes the vars through as empty strings). On Vercel, create
+the Upstash database via the Marketplace **in the same region** as the
+functions and the Neon project (Tokyo) — a cross-region cache adds ~100ms to
+every hit. Unit tests for the cache layer (`lib/cache.test.ts`) run in the
+Vitest node project against an in-memory fake; no live Redis is ever needed
+for tests.
 
 ## Image uploads and storage
 
@@ -250,7 +298,10 @@ db/
   fixtures.ts                typed sample rows shared by seed + tests (planned)
   migrations/                generated SQL (source of truth)
 lib/
-  db.ts                      primary + replica pools, readQuery() fallback
+  cache.ts                      cachedRead() / invalidateTags() — Upstash cache-aside
+  cache.test.ts                 unit tests (vitest node project, in-memory fake)
+  db.ts                         primary + replica pools, readQuery() fallback
+  redis.ts                      lazy Upstash client (null when env unset)
 .storybook/                  Storybook config (main.ts, preview.tsx)
 vitest.config.ts             Vitest projects (storybook browser + node)
 drizzle.config.ts            drizzle-kit config (loads .env.local)

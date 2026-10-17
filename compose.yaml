@@ -48,6 +48,9 @@ services:
       # No replica locally — points at the same instance so the split is a
       # no-op until you add a real read replica.
       DATABASE_REPLICA_URL: postgres://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-app}@db:5432/${POSTGRES_DB:-app}
+      # Optional read cache; empty means caching is disabled locally.
+      UPSTASH_REDIS_REST_URL: ${UPSTASH_REDIS_REST_URL:-}
+      UPSTASH_REDIS_REST_TOKEN: ${UPSTASH_REDIS_REST_TOKEN:-}
     ports:
       - "3000:3000"
     depends_on:

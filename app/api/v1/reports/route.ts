@@ -2,9 +2,12 @@ import { desc, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { table } from "@/db/schema";
+import { cachedRead, invalidateTags } from "@/lib/cache";
 import { getDb, readQuery } from "@/lib/db";
 
-// Always hit the database at request time — never prerender or cache this.
+// Served at request time (never prerendered). GET reads pass through the
+// Redis cache layer (lib/cache.ts) before hitting the database; the route
+// itself is not cached by Next's full-route cache.
 export const dynamic = "force-dynamic";
 
 const listQuery = z.object({
@@ -21,7 +24,9 @@ const createBody = z.object({
 /**
  * GET /api/v1/reports?city=Tokyo&limit=20
  *
- * Read path — served by the replica, with automatic fallback to the primary.
+ * Read path — Redis cache (when configured) → replica → primary fallback.
+ * Cache key derives from the normalized query params, so long-tail param
+ * combinations get Redis hit rates the CDN can't give them.
  */
 export async function GET(request: NextRequest) {
   const parsed = listQuery.safeParse(
@@ -38,14 +43,26 @@ export async function GET(request: NextRequest) {
   const { colName3, limit } = parsed.data;
 
   try {
-    // No string interpolation: Drizzle parameterizes everything.
-    const rows = await readQuery((client) =>
-      client
-        .select()
-        .from(table)
-        .where(colName3 ? eq(table.colName3, colName3) : undefined)
-        .orderBy(desc(table.colName3))
-        .limit(limit),
+    // 30s fresh; then 270s of stale-while-revalidate. Writes bump the
+    // "reports" version (see POST), so listings appear immediately after a
+    // create regardless of TTL.
+    const rows = await cachedRead(
+      {
+        key: `list:${colName3 ?? "all"}:${limit}`,
+        tags: ["reports"],
+        ttlSeconds: 30,
+        staleSeconds: 270,
+      },
+      // No string interpolation: Drizzle parameterizes everything.
+      () =>
+        readQuery((client) =>
+          client
+            .select()
+            .from(table)
+            .where(colName3 ? eq(table.colName3, colName3) : undefined)
+            .orderBy(desc(table.colName3))
+            .limit(limit),
+        ),
     );
 
     return NextResponse.json({ data: rows });
@@ -79,6 +96,11 @@ export async function POST(request: NextRequest) {
 
   try {
     const [row] = await getDb().insert(table).values(parsed.data).returning();
+
+    // Awaited (one fast round trip) so a create is never followed by a stale
+    // read. Fails open inside invalidateTags — worst case is a stale list
+    // until the TTL window lapses, never a failed write.
+    await invalidateTags(["reports"]);
 
     return NextResponse.json({ data: row }, { status: 201 });
   } catch (error) {

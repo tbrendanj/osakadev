@@ -14,7 +14,7 @@ export default function JobsDisplay({
 }: JobsDisplayProps) {
   return <div className={styles.job_display}>
     <JobsDisplayHeader title={title} />
-    <JobCardGrid jobCards={jobCards} />
+    <JobCardGrid jobCards={jobCards} isLarge={false} />
   </div>;
 }
 

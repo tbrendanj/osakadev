@@ -7,6 +7,8 @@ import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 
 import { playwright } from '@vitest/browser-playwright';
 
+import viteTsconfigPaths from 'vite-tsconfig-paths';
+
 const dirname =
   typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
@@ -14,6 +16,23 @@ const dirname =
 export default defineConfig({
   test: {
     projects: [
+      {
+        extends: true,
+        plugins: [viteTsconfigPaths()],
+        test: {
+          // Pure unit tests (Zod, lib utilities). No browser, no DB, no Redis —
+          // see "Testing and test data" in the README.
+          name: 'node',
+          environment: 'node',
+          include: ['lib/**/*.test.ts', 'app/**/*.test.ts', 'db/**/*.test.ts'],
+          exclude: [
+            '**/*.stories.tsx',
+            '**/*.stories.ts',
+            'node_modules/**',
+            '.next/**',
+          ],
+        },
+      },
       {
         extends: true,
         plugins: [

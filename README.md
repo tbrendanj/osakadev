@@ -9,6 +9,7 @@ and recruitment.
 NextJS 16 (App Router, Typescript)\
 Drizzle ORM + `node-postgres` (`pg`)\
 PostgreSQL 16\
+Upstash Redis (optional read cache)\
 Docker\
 Storybook
 
