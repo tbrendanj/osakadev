@@ -2,7 +2,7 @@ import styles from "./FindPageBanner.module.css";
 
 import BannerSearch from "./BannerSearch";
 
-export default function FindPage() {
+export default function FindPageBanner() {
   return <>
     <div className={`${styles.find_page_banner_upper} ${"horizontally_centered"}`}>
       <h2>Find Job</h2>
