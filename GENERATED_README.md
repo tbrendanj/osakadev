@@ -62,6 +62,66 @@ Each step would include: which package to add, which config files to create/upda
 - **Sentry** and **OpenTelemetry tracing** require app code changes and env vars in both local (`.env.local`, `compose.yaml`) and production (Vercel project settings).
 - The project's existing philosophy is fail-open and env-driven: anything added should degrade gracefully when env vars are unset (local dev, Docker, tests).
 
+## Database Schema & Migrations
+
+### Define the schema
+
+`db/schema.ts` is the single source of truth for Drizzle table definitions. Replace or extend the placeholder `table` with your real tables (e.g., `jobs`, `companies`, `candidates`). Export select/insert types so route handlers can use them:
+
+```ts
+export const jobs = pgTable("jobs", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  company: text("company").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export type Job = typeof jobs.$inferSelect;
+export type NewJob = typeof jobs.$inferInsert;
+```
+
+### Local development (Docker Compose)
+
+| Step | Command | Purpose |
+|------|---------|---------|
+| 1 | `npm run db:up` | Start the Postgres 16 container on `localhost:5432` |
+| 2 | `npm run db:generate` | Diff `db/schema.ts` and write a new SQL migration to `db/migrations/` |
+| 3 | `npm run db:migrate` | Apply pending migrations to the database |
+| 4 | `npm run db:seed` | (Optional) Insert sample rows |
+
+Environment variables (copy from `.env.example` into `.env.local`):
+
+```
+DATABASE_URL=postgres://app:app@localhost:5432/app
+DATABASE_URL_UNPOOLED=postgres://app:app@localhost:5432/app
+DATABASE_REPLICA_URL=postgres://app:app@localhost:5432/app
+```
+
+`drizzle.config.ts` loads `.env.local` and uses `DATABASE_URL_UNPOOLED ?? DATABASE_URL`. Locally there is no pooler, so `DATABASE_URL` is fine for migrations.
+
+Alternatively, `npm run docker:up` builds the full stack: the `migrate` service runs `npm run db:migrate` inside the container network against `db:5432`, and the `web` service waits for it to complete successfully before starting.
+
+### Live production (Vercel + Neon)
+
+The live database is Neon Postgres. Set these in your Vercel project settings (Production / Preview / Development):
+
+| Variable | Value | Used by |
+|----------|-------|---------|
+| `DATABASE_URL` | Neon **pooled** connection string | App runtime reads/writes |
+| `DATABASE_URL_UNPOOLED` | Neon **direct/unpooled** connection string | Migrations only |
+| `DATABASE_REPLICA_URL` | Neon read replica **pooled** endpoint (optional) | Read traffic; falls back to `DATABASE_URL` |
+
+Run `npm run db:migrate` locally with `.env.local` pointing `DATABASE_URL_UNPOOLED` at the Neon direct endpoint, or via a deployment pipeline job against the live direct connection.
+
+> **Important:** Migrations must run against a **direct/unpooled** connection. Neon's pooler is PgBouncer in transaction mode and can break `drizzle-kit migrate` — never point `DATABASE_URL_UNPOOLED` at the pooled endpoint.
+
+### Notes
+
+- `db/migrations/meta` tracks migration state for `drizzle-kit generate`.
+- `npm run db:push` pushes schema directly (dev only, no SQL file) — prefer `db:generate` + `db:migrate` for version-controlled migrations.
+- `npm run db:studio` opens the Drizzle Studio GUI for local inspection.
+- `.env.local` is excluded from the Docker image (`.dockerignore`); Compose injects runtime database env vars.
+
 ## Prerequisites
 
 - Node.js 20+ (developed on 22)

@@ -59,7 +59,7 @@ npm run storybook
 TBD
 
 Language toggle (eng-jp) - Requires support for storing data for two languages for the same job ids\
-Database access\
+Database access, and automating database migrations to neon via GHAs\
 Security audit\
 User accounts
 - companies need to be able to add job listings
