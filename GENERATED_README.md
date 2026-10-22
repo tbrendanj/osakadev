@@ -23,6 +23,44 @@ philosophy as the replica.
 | Validation | Zod                                          |
 | Read cache | Upstash Redis (optional — disabled when unset) |
 | Containers | Docker + Docker Compose                      |
+| Observability | None yet — planned, see “Observability & monitoring” below |
+
+## Observability & monitoring
+
+Observability is not yet implemented. The table below lists commonly used tools for this stack (Next.js 16 + PostgreSQL + Drizzle ORM + Upstash Redis on Vercel), per each tool's official documentation. None of these are installed or configured in the repo today.
+
+| Layer | Tool | Purpose | Code changes needed? |
+|-------|------|---------|----------------------|
+| Real User Monitoring | Vercel Analytics (`@vercel/analytics`) | Page views, Core Web Vitals | Minimal (layout + env var) |
+| Web Vitals / performance | Vercel Speed Insights (`@vercel/speed-insights`) | INP, FCP, CLS field data | Minimal (layout + env var) |
+| Error tracking | Sentry (`@sentry/nextjs`) | Error capture, release health, tracing | Config files + env vars |
+| Distributed tracing | Next.js `instrumentation.ts` + OpenTelemetry | Request lifecycle spans | New `instrumentation.ts` |
+| Server logs | Vercel Log Streaming / Log Drains | Platform logs for route handlers | None (platform-side) |
+| Redis metrics | Upstash Console | Command rate, latency, memory, errors | None (platform-side) |
+| Postgres metrics | Neon Observability | Query stats, connections, slow queries | None (platform-side) |
+| Structured app logging | pino (or similar) | Structured request/error logs | New logging utility |
+
+### Proposed implementation plan
+
+The steps below are ordered from lowest friction to most involved. Each can be adopted independently — you do not need to do all of them.
+
+| Step | Action | Scope |
+|------|--------|-------|
+| 1 | Add Vercel Analytics + Speed Insights | RUM only, lowest friction |
+| 2 | Add Sentry (`@sentry/nextjs`) | Error tracking + performance traces |
+| 3 | Add `instrumentation.ts` for OpenTelemetry tracing | Distributed tracing |
+| 4 | Add structured server logging (pino) | App-level request/error logs |
+| 5 | Plumb env vars into `.env.example`, `.env.local`, `compose.yaml`, Vercel | Config consistency |
+| 6 | Extend `app/api/health/route.ts` if desired | Observability surface |
+
+Each step would include: which package to add, which config files to create/update, which env vars to set, and how it aligns with the project's existing fail-open / env-driven conventions.
+
+### Notes
+
+- **Vercel-native tools** (Analytics, Speed Insights, Log Streaming) require no infrastructure beyond the Vercel project.
+- **Upstash Console** and **Neon Observability** are platform-side dashboards — no app code changes needed, just enable them in their respective consoles.
+- **Sentry** and **OpenTelemetry tracing** require app code changes and env vars in both local (`.env.local`, `compose.yaml`) and production (Vercel project settings).
+- The project's existing philosophy is fail-open and env-driven: anything added should degrade gracefully when env vars are unset (local dev, Docker, tests).
 
 ## Prerequisites
 
