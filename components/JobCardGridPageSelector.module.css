@@ -4,17 +4,27 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: .5rem;
   margin: auto;
   padding-top: 2rem;
 }
 
 .page_selector {
-  padding: .75rem 1rem;
+  padding: .5rem .75rem;
   border-radius: 2rem;
   background-color: #bfbfbf;
 }
 
 .page_selector:hover, .selected_page {
   background-color: #80ff80;
+}
+
+@media only screen and (min-width: 768px) {
+  .job_card_grid_page_selector {
+    gap: 2rem;
+  }
+
+  .page_selector {
+    padding: .75rem 1rem;
+  }
 }
