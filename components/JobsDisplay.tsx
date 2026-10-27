@@ -17,6 +17,3 @@ export default function JobsDisplay({
     <JobCardGrid jobCards={jobCards} isLarge={false} />
   </div>;
 }
-
-//TODO: missing carousel. Should use react state to move through pages 1-5(max) or directly to a page and display a different grid,
-//which each get 6 of the 30 max listings passed in

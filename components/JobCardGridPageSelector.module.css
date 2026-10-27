@@ -1,0 +1,20 @@
+.job_card_grid_page_selector {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: auto;
+  padding-top: 2rem;
+}
+
+.page_selector {
+  padding: .75rem 1rem;
+  border-radius: 2rem;
+  background-color: #bfbfbf;
+}
+
+.page_selector:hover, .selected_page {
+  background-color: #80ff80;
+}
