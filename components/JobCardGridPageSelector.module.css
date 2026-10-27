@@ -10,21 +10,39 @@
 }
 
 .page_selector {
-  padding: .5rem .75rem;
-  border-radius: 2rem;
-  background-color: #bfbfbf;
+  display: flex;
+  height: 2rem;
+  width: 2rem;
+  line-height: 3rem;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
 }
 
-.page_selector:hover, .selected_page {
-  background-color: #80ff80;
+.page_selector:hover {
+  background-color: #F1F2F4;
+}
+
+.selected_page, .selected_page:hover {
+  background-color: #00A99D;
+}
+
+.page_selector_arrow {
+  font-size: 1.5rem;
+}
+
+.page_selector_arrow:hover {
+  background-color: #E7F0FA;
 }
 
 @media only screen and (min-width: 768px) {
   .job_card_grid_page_selector {
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .page_selector {
-    padding: .75rem 1rem;
+    height: 3rem;
+    width: 3rem;
+    line-height: 3rem;
   }
 }

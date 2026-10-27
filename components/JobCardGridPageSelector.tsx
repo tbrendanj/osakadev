@@ -1,5 +1,6 @@
 "use client"
 import styles from "./JobCardGridPageSelector.module.css";
+import { BsArrowLeftShort, BsArrowRightShort } from "react-icons/bs";
 
 export interface JobCardGridPageSelectorProps {
   currentPage: number;
@@ -19,13 +20,17 @@ export default function JobCardGridPageSelector({
     pageSelectorNumbers.push(page);
   }
   return <div className={styles.job_card_grid_page_selector}>
-    {currentPage > 1 && <a className={styles.page_selector} onClick={() => pageSelectorFunction(currentPage - 1)}>&lt;</a>}
+    {currentPage > 1 && <a className={`${styles.page_selector} ${styles.page_selector_arrow}`} onClick={() => pageSelectorFunction(currentPage - 1)}>
+      <BsArrowLeftShort />
+    </a>}
     {pageSelectorNumbers.map(pageNumber => {
       if (pageNumbers.includes(pageNumber)) {
-        return <a className={`${styles.page_selector} ${pageNumber === currentPage && styles.selected_page}`} onClick={() => pageSelectorFunction(pageNumber)}>{pageNumber}</a>;
+        return <a key={`${"page_" + pageNumber}`} className={`${styles.page_selector} ${pageNumber === currentPage && styles.selected_page}`} onClick={() => pageSelectorFunction(pageNumber)}>{pageNumber}</a>;
       }
       return "";
     })}
-    {currentPage < maxPage && <a className={styles.page_selector} onClick={() => pageSelectorFunction(currentPage + 1)}>&gt;</a>}
+    {currentPage < maxPage && <a className={`${styles.page_selector} ${styles.page_selector_arrow}`} onClick={() => pageSelectorFunction(currentPage + 1)}>
+      <BsArrowRightShort />
+    </a>}
   </div>;
 }
