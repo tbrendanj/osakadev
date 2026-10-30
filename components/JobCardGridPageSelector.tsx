@@ -24,10 +24,9 @@ export default function JobCardGridPageSelector({
       <BsArrowLeftShort />
     </a>
     {pageSelectorNumbers.map(pageNumber => {
-      if (pageNumbers.includes(pageNumber)) {
-        return <a key={`${"page_" + pageNumber}`} className={`${styles.page_selector} ${pageNumber === currentPage && styles.selected_page}`} onClick={() => pageSelectorFunction(pageNumber)}>{pageNumber}</a>;
-      }
-      return "";
+      return <a key={`${"page_" + pageNumber}`} className={`${styles.page_selector} ${pageNumber === currentPage && styles.selected_page} ${!pageNumbers.includes(pageNumber) ? styles.disabled : ""}`} onClick={() => pageSelectorFunction(pageNumber)}>
+        {pageNumbers.includes(pageNumber) && pageNumber}
+        </a>;
     })}
     <a className={`${styles.page_selector} ${styles.page_selector_arrow} ${currentPage >= maxPage ? styles.disabled : ""}`} onClick={() => pageSelectorFunction(currentPage + 1)}>
       <BsArrowRightShort />
