@@ -8,7 +8,7 @@
  * JobListing > description (split with <br> to define paragraph splits)
  * 
  * JobListing joined to JobDetail on jobListingId
- * Details are categorized into requirement, nice, and benefit
+ * Details are categorized into requirement, desirable, and benefit
  * being joined to JobListing instead of Job automatically takes care of sorting on langauge for this table
  * JobDetail > query for category and description, transform into array and attach to Job/Listing in endpoint
  * 

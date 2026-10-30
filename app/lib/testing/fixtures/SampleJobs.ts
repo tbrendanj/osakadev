@@ -8,31 +8,31 @@ const SampleFrontend: JobWithListingDetails = {
   location: "Osaka, Japan",
   salary: "¥4,000,000 – ¥6,000,000 / year",
   iconLink: "/images/noimage.png",
-  description: "asdf<br>qwerty",
+  description: "Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.<br>Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.",
   details: [
     {
       category: "requirement",
-      detail: "asdf",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
       category: "requirement",
-      detail: "qwerty",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
-      category: "nice",
-      detail: "asdf",
+      category: "desirable",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
-      category: "nice",
-      detail: "qwerty",
-    },
-    {
-      category: "benefit",
-      detail: "asdf",
+      category: "desirable",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
       category: "benefit",
-      detail: "qwerty",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
+    },
+    {
+      category: "benefit",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
   ]
 };
@@ -45,31 +45,31 @@ const SampleBackend: JobWithListingDetails = {
   location: "Tokyo, Japan",
   salary: "¥5,000,000 – ¥7,500,000 / year",
   iconLink: "/images/noimage.png",
-  description: "asdf<br>qwerty",
+  description: "Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.<br>Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.",
   details: [
     {
       category: "requirement",
-      detail: "asdf",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
       category: "requirement",
-      detail: "qwerty",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
-      category: "nice",
-      detail: "asdf",
+      category: "desirable",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
-      category: "nice",
-      detail: "qwerty",
-    },
-    {
-      category: "benefit",
-      detail: "asdf",
+      category: "desirable",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
     {
       category: "benefit",
-      detail: "qwerty",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
+    },
+    {
+      category: "benefit",
+      detail: "Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on",
     },
   ]
 }

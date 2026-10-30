@@ -1,0 +1,18 @@
+.job_page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.job_page_main_section {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2rem;
+}
+
+.job_page_details_sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

@@ -1,0 +1,9 @@
+.job_page_detail_section {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.job_page_detail_list {
+  padding-left: 1.5rem;
+}
