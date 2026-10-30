@@ -1,53 +1,41 @@
 import Image from "next/image";
+import JobWithListingDetails from "@/app/lib/types/JobWithListingDetails";
 
 import styles from "./JobCard.module.css";
 import 'material-symbols/outlined.css';
 import { HiLocationMarker } from "react-icons/hi";
 
 export interface JobCardProps {
-  title: string;
-  companyName: string;
-  remoteStatus: string;
-  location: string;
-  salary: string;
-  iconLink: string;
-  jobLink: string;
-  [key: string]: unknown;
+  job: JobWithListingDetails;
 }
 
 export default function JobCard({
-  title,
-  companyName,
-  remoteStatus,
-  location,
-  salary,
-  iconLink,
-  jobLink
+  job
 }: JobCardProps) {
   return <div className={styles.job_card}>
-    <a href={jobLink}>
+    <a href={`${"/find/job/" + job.jobId}`}>
       <h3>
-        {title}
+        {job.title}
       </h3>
       <div className={`${styles.second_row} ${"horizontally_centered"}`}>
         <div className={styles.remote_status}>
-          {remoteStatus}
+          {job.remoteStatus}
         </div>
         <div className={styles.salary}>
-          Salary: {salary}
+          Salary: {job.salary}
         </div>
       </div>
       <div className={`${styles.third_row} ${"horizontally_centered"}`}>
         <div className={`${styles.company_profile} ${"horizontally_centered"}`}>
-          <Image className={styles.icon} src={iconLink} alt={"icon"} width={50} height={50} />
+          <Image className={styles.icon} src={job.iconLink} alt={"icon"} width={50} height={50} />
           <div className={styles.company_info}>
             <h4>
-              {companyName}
+              {job.companyName}
             </h4>
             <div className={`${styles.company_location} ${"horizontally_centered"}`}>
               <HiLocationMarker className={styles.location_icon}/>
               <p>
-                {location}
+                {job.location}
               </p>
             </div>
           </div>

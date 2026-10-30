@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import JobCardGrid from "./JobCardGrid";
-import { FewJobCards, JobCards } from "@/app/lib/testing/fixtures/SampleJobCards";
+import { FewJobs, Jobs } from "@/app/lib/testing/fixtures/SampleJobs";
 
 const meta = {
   title: "JobCardGrid",
@@ -14,14 +14,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    jobCards: FewJobCards,
+    jobs: FewJobs,
     isLarge: false,
   }
 };
 
 export const Large: Story = {
   args: {
-    jobCards: JobCards,
+    jobs: Jobs,
     isLarge: true
   }
 };

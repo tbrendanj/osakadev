@@ -35,6 +35,11 @@
   background-color: #E7F0FA;
 }
 
+.disabled {
+  pointer-events: none;
+  color: #cccccc;
+}
+
 @media only screen and (min-width: 768px) {
   .job_card_grid_page_selector {
     gap: 1.5rem;

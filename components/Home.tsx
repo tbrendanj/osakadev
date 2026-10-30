@@ -9,7 +9,7 @@ import { HomeBannerText } from "@/app/lib/static/HomeBannerText";
 import { InfoCards } from "@/app/lib/static/InfoCards";
 import { HomeJobsDisplayHeaderTitle } from "@/app/lib/static/HomeJobsDisplayHeaderTitle";
 import JobsDisplay from "./JobsDisplay";
-import { JobCards } from "@/app/lib/testing/fixtures/SampleJobCards";
+import { Jobs } from "@/app/lib/testing/fixtures/SampleJobs";
 import { CategoryListings } from "@/app/lib/testing/fixtures/CategoryListings";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
       content={"Getting your dream job in Japan shouldn't be complicated. Here's how it works:"}
       infoCards={InfoCards}
     />
-    <JobsDisplay jobCards={JobCards} title={HomeJobsDisplayHeaderTitle} />
+    <JobsDisplay jobs={Jobs} title={HomeJobsDisplayHeaderTitle} />
     <Categories categories={CategoryListings} />
   </>;
 }

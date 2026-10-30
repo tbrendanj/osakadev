@@ -20,17 +20,17 @@ export default function JobCardGridPageSelector({
     pageSelectorNumbers.push(page);
   }
   return <div className={styles.job_card_grid_page_selector}>
-    {currentPage > 1 && <a className={`${styles.page_selector} ${styles.page_selector_arrow}`} onClick={() => pageSelectorFunction(currentPage - 1)}>
+    <a className={`${styles.page_selector} ${styles.page_selector_arrow} ${currentPage < 2 ? styles.disabled : ""}`} onClick={() => pageSelectorFunction(currentPage - 1)}>
       <BsArrowLeftShort />
-    </a>}
+    </a>
     {pageSelectorNumbers.map(pageNumber => {
       if (pageNumbers.includes(pageNumber)) {
         return <a key={`${"page_" + pageNumber}`} className={`${styles.page_selector} ${pageNumber === currentPage && styles.selected_page}`} onClick={() => pageSelectorFunction(pageNumber)}>{pageNumber}</a>;
       }
       return "";
     })}
-    {currentPage < maxPage && <a className={`${styles.page_selector} ${styles.page_selector_arrow}`} onClick={() => pageSelectorFunction(currentPage + 1)}>
+    <a className={`${styles.page_selector} ${styles.page_selector_arrow} ${currentPage >= maxPage ? styles.disabled : ""}`} onClick={() => pageSelectorFunction(currentPage + 1)}>
       <BsArrowRightShort />
-    </a>}
+    </a>
   </div>;
 }
