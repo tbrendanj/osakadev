@@ -1,0 +1,40 @@
+.job_page_salary_location {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width: fit-content;
+  padding: 1.5rem;
+  border-radius: .5rem;
+  border: 1px solid #E7F0FA;
+}
+
+.job_page_salary_location_subsection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.job_page_salary_location .job_page_salary_location_subsection:not(:first-child) {
+  border-left: 2px solid #E7F0FA;
+}
+
+.salary_main_text {
+  padding-top: .5rem;
+  color: #0BA02C;
+}
+
+.salary_bottom_text {
+  color: #767F8C;
+  font-size: .75rem;
+}
+
+.map_icon {
+  color: #0A65CC;
+  font-size: 1.75rem;
+  padding-bottom: .5rem;
+}
+
+.location_text {
+  color: #767F8C;
+}
