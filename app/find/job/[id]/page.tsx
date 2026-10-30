@@ -9,7 +9,7 @@ export default async function Page({
   // should be querying db when db is set up
   const { id } = await params;
   const job = Jobs.filter((job) => {
-    return job.jobId === id;
+    return job.jobId === Number(id);
   })[0];
   return <JobPage job={job} />;
 }

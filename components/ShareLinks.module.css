@@ -7,7 +7,7 @@
 
 .links {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: .25rem;
 }
 
@@ -18,4 +18,11 @@
   background-color: #E7F0FA;
   color: #0A65CC;
   font-size: 1.25rem;
+  width: fit-content;
+}
+
+@media only screen and (min-width: 768px) {
+  .links {
+    flex-direction: row;
+  }
 }
