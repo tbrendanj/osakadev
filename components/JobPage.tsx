@@ -3,6 +3,7 @@ import styles from "./JobPage.module.css";
 import JobPageTopCard from "./JobPageTopCard";
 import JobPageDetailSection from "./JobPageDetailSection";
 import JobPageSalaryLocationOverviewSection from "./JobPageSalaryLocationOverviewSection";
+import JobPageJobOverviewSection from "./JobPageJobOverviewSection";
 
 export interface JobPageProps {
   job: JobWithListingDetails;
@@ -43,6 +44,7 @@ export default function JobPage({
       </div>
       <div className={styles.job_page_overview_sections}>
         <JobPageSalaryLocationOverviewSection salary={job.salary} location={job.location} />
+        <JobPageJobOverviewSection date={job.date} level={job.level} education={job.education} />
       </div>
     </div>
   </div>;

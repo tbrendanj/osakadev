@@ -1,6 +1,6 @@
 /**
  * This type represents joining Job with JobListing with JobDetails with Company
- * Job > jobId, title, remoteStatus, location, salary
+ * Job > jobId, title, remoteStatus, location, salary, level, date, education
  * 
  * Job joined to JobListing on jobId, queried with user's language as a param
  * if not found then query the other language and translate details
@@ -21,11 +21,13 @@ export default interface JobWithListingDetails {
   remoteStatus: string;
   location: string;
   salary: string;
+  level: string;
+  date: Date;
+  education: string;
   description: string;
   details: JobDetail[];
   companyName: string;
   iconLink: string;
-
 }
 
 export interface JobDetail {

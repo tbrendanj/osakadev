@@ -1,0 +1,23 @@
+.overview_mini_section {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  align-items: start;
+}
+
+.icon {
+  color: #0A65CC;
+  font-size: 2rem;
+  padding-bottom: .5rem;
+}
+
+.title {
+  color: #767F8C;
+  font-size: .85rem;
+  text-transform: uppercase;
+  padding-left: .25rem;
+}
+
+.content {
+  padding-left: .25rem;
+}

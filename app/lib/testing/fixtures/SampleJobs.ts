@@ -8,6 +8,9 @@ const SampleFrontend: JobWithListingDetails = {
   location: "Osaka, Japan",
   salary: "¥4,000,000 – ¥6,000,000",
   iconLink: "/images/noimage.png",
+  level: "Entry",
+  date: new Date("2026-01-01"),
+  education: "Bachelor's",
   description: "Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.<br>Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.",
   details: [
     {
@@ -45,6 +48,9 @@ const SampleBackend: JobWithListingDetails = {
   location: "Tokyo, Japan",
   salary: "¥5,000,000 – ¥7,500,000",
   iconLink: "/images/noimage.png",
+  level: "Mid",
+  date: new Date("2026-01-01"),
+  education: "Bachelor's",
   description: "Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.<br>Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.",
   details: [
     {

@@ -1,0 +1,21 @@
+.share_links {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  padding-left: 1rem;
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  gap: .25rem;
+}
+
+.share_links_button {
+  padding: .5rem 1rem;
+  gap: .5rem;
+  border-radius: .25rem;
+  background-color: #E7F0FA;
+  color: #0A65CC;
+  font-size: 1.25rem;
+}
